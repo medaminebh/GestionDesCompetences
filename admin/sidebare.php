@@ -13,8 +13,8 @@
 
     <h3>Managers</h3>
     <ul class="toggle">
-        <li class="icn_add_user"><a href="#">Ajouter Manager</a></li>
-        <li class="icn_view_users"><a href="#">Voir Managers</a></li>
+        <li class="icn_add_user"><a href="index.php?module=manager&option=add">Ajouter Manager</a></li>
+        <li class="icn_view_users"><a href="index.php?module=manager&option=list">Voir Managers</a></li>
     </ul>
 
     <h3>Collaborateurs</h3>
