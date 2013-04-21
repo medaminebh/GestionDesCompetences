@@ -263,7 +263,7 @@
                                 tr+= "<td>"+$(this).find('collab_expire_date').text()+"</td>";
                                 tr+= "<td>"+$(this).find('collab_state').text()+"</td>";
                                 tr+= "<td class=\"options-width\">";
-                                tr+= "<a href=\"index.php?module=collab&option=edit\" title=\"Edit\" class=\"icon-1 info-tooltip\" onClick=\"$.cookie('usertoedit', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
+                                tr+= "<a href=\"index.php?module=manager&option=edit\" title=\"Edit\" class=\"icon-1 info-tooltip\" onClick=\"$.cookie('usertoedit', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
 				tr+= "<a href=\"index.php?module=manager&option=delete\" title=\"Delete\" class=\"icon-2 info-tooltip\" onClick=\"$.cookie('userstodelete', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
 				tr+= "</td>";
                                 tr+= "</tr>";
