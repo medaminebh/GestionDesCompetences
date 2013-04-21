@@ -164,13 +164,16 @@
                                 if(isset($_GET['option'])){
                                     switch ($_GET['option']){
                                         case "add":
-                                            echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Add Manager</a>';
+                                            include_once 'modules/manager/forms/addmanager.html';
                                             break;
                                         case "list":
-                                            echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">List Managers</a>';
+                                             include_once 'modules/manager/forms/listmanager.html';
                                             break;
                                         case "edit":
-                                            echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Edit Manager</a>';
+                                            include_once 'modules/manager/forms/editmanager.html';
+                                            break;
+                                        case "delete":
+                                            include_once 'modules/manager/forms/deletemanager.html';
                                             break;
                                         default :
                                             break;
