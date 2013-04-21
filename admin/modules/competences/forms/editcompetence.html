@@ -1,0 +1,148 @@
+<!-- Start: page-top-outer -->
+<!-- <div id="page-top-outer">
+
+
+</div> -->
+<!-- End: page-top-outer -->
+
+<div class="clear">&nbsp;</div>
+
+<!-- start content-outer -->
+<div id="content-outer">
+    <!-- start content -->
+    <div id="content">
+        <div id="page-heading"><h1>Modifier Competence</h1></div>
+            <!-- end page-heading -->
+
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<tr>
+		<th rowspan="3" class="sized"><img src="images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
+		<th class="topleft"></th>
+		<td id="tbl-border-top">&nbsp;</td>
+		<th class="topright"></th>
+		<th rowspan="3" class="sized"><img src="images/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
+	</tr>
+	<tr>
+		<td id="tbl-border-left"></td>
+		<td>
+		<!--  start content-table-inner ...................................................................... START -->
+		<div id="content-table-inner" style="padding: 10px 0 0px 0;">
+
+			<!--  start table-content  -->
+			<div id="table-content" style="margin: 0 10px 0px 10px;">
+
+                            <div style="float: left;" class="loader"><img src="images/ajax-loader.gif" alt="Loading..." title="Loading..." id="loading" style="display:none" /></div><div style="float: left; margin-left:5px;" id="info"></div>
+                <div class="clear">&nbsp;</div>
+                <img src="images/arrow-right.jpg" alt="List Collabs" title="List Collabs .." id="arrow-right" style="float:right;float: right; display: none; margin: 15px 50px 0 0;" />
+                <a href="index.php?module=competence&option=list" class="addnew" id="addnew" style="display: none;">Listez Competences</a>
+                            <!-- start id-form -->
+                                <form id="add-competence" action="admin/modules/competence/actions/editcompetence.php" method="POST" style="display:none">
+                                    <fieldset style="padding: 10px 10px 0 10px;">
+                                        <legend style="color: red;">Competence Information</legend>
+                                        <table border="0" cellpadding="" cellspacing="" class="id-form">
+                                            <tbody>
+                                                <tr>
+                                                    <th valign="top">Nom Competence:</th>
+                                                    <td><input name="nom" type="text" required="required" /></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th valign="top">Description :</th>
+                                                    <td><textarea name ="desc" rows="3" cols="" class="form-textarea" required="required"></textarea></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                     </fieldset>
+                                    <input type="hidden" name="id_competence" value="" />
+                                    <input type="submit" name="submit" style="float: right; margin: 15px 15px 0px 15px; width: 100px;color: green;font-weight: bold;cursor: pointer;" value="Modifier" />
+                                    <input type="reset" value="" style="float: right; margin: 14px 0 0 0;" id="reset" class="form-reset" />
+                                </form>
+                            <!-- end id-form  -->
+                            <div class="clear">&nbsp;</div>
+                        </div>
+			<!--  end content-table  -->
+
+		</div>
+		<!--  end content-table-inner ............................................END  -->
+		</td>
+		<td id="tbl-border-right"></td>
+	</tr>
+	<tr>
+		<th class="sized bottomleft"></th>
+		<td id="tbl-border-bottom">&nbsp;</td>
+		<th class="sized bottomright"></th>
+	</tr>
+	</table>
+	<div class="clear">&nbsp;</div>
+        </div>
+        <!--  end content -->
+        <div class="clear">&nbsp;</div>
+</div>
+<script type="text/javascript">
+$(window).load(function(){
+    $("#loading").show();
+    $("#info").html("<p>Processing ...</p><br />").fadeIn("slow");
+    //var dataString = 'id_user='+ parseInt($.cookie("usertoedit"));
+
+    $.ajax({
+            url: "admin/modules/competences/actions/editcompetence.php",
+            contentType: "text/xml; charset=utf-8",
+            //data: dataString,
+            cache: false,
+            success: function (xml) {
+                var hasChildren = $(xml).children('competences').length > 0;
+                if (hasChildren) {
+                    $(xml).find("competence").each(function() {
+                            $("input[name=id_competence]").val($(this).find('competence_id').text());
+                            $("input[name=nom]").val($(this).find('competence_nom').text());
+                            $("textarea[name=desc]").val($(this).find('competence_description').text());
+                    });
+                    $("#add-competence").fadeIn("fast");
+                    $("#loading").hide();
+                    $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: black;\">Veuillez modifier le formulaire pour mettre à jour cette Competence ..</p><br />")}).fadeIn("normal");
+                }else {
+                    $("#loading").hide();
+                    $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue !</p><br />")}).fadeIn("normal");
+                }
+            }
+    });
+    return false;
+});
+
+
+
+$('#add-competence').submit(function(){
+        $("#info").fadeOut("fast", function(){$("#info").text("Processing ...")}).fadeIn("slow");
+        $("#add-competence").fadeOut("fast", function(){$("#loading").fadeIn("normal");});
+        $("#content-outer").height($("#sidebar").height());
+        var competence = new Array(
+                    $("input[name=id_competence]").val(),
+                    $("input[name=nom]").val(),
+                    $("textarea[name=desc]").val()
+                );
+    var dataString = 'id_competence='+ competence[0]
+                     + '&nom_competence='+ competence[1]
+                     + '&description_competence=' + competence[2]
+                     + '&submit=true'
+                     ;
+
+        $.ajax({
+                type: "POST",
+                url: "admin/modules/competences/actions/editcompetence.php",
+                data: dataString,
+                cache: false,
+                success: function (a) {
+                        if (a == 1) {
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\">Competence modifiée avec succès.</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                        } else {
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue !</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                        }
+                }
+        });
+        return false;
+});
+</script>
