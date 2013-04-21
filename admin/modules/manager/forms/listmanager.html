@@ -264,14 +264,14 @@
                                 tr+= "<td>"+$(this).find('collab_state').text()+"</td>";
                                 tr+= "<td class=\"options-width\">";
                                 tr+= "<a href=\"index.php?module=collab&option=edit\" title=\"Edit\" class=\"icon-1 info-tooltip\" onClick=\"$.cookie('usertoedit', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
-				tr+= "<a href=\"index.php?module=collab&option=delete\" title=\"Delete\" class=\"icon-2 info-tooltip\" onClick=\"$.cookie('userstodelete', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
+				tr+= "<a href=\"index.php?module=manager&option=delete\" title=\"Delete\" class=\"icon-2 info-tooltip\" onClick=\"$.cookie('userstodelete', parseInt("+$(this).find('collab_id').text()+"),{expires: 30,path: '/'});\"></a>";
 				tr+= "</td>";
                                 tr+= "</tr>";
                                 i++;
                                 $("#product-table").append(tr).hide().fadeIn("fast");
                             });
                                 $("#loading").hide();
-                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\"><span id=\"nb-collab\">"+$(xml).find('collabs').attr('total')+"</span> collaborateurs trouvés.</p>")}).fadeIn("normal");
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\"><span id=\"nb-collab\">"+$(xml).find('collabs').attr('total')+"</span> Managers trouvés.</p>")}).fadeIn("normal");
                                 $("#paging-table").fadeIn("fast");
                                 //table sorter
                                 $(".tablesorter").tablesorter();
@@ -306,7 +306,7 @@
                                 $.cookie("list", 0,{expires: 30,path: '/'});
                                 $.cookie("total-collabs", 0,{expires: 30,path: '/'});
                                 $("#loading").hide();
-                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Vous n'avez pas ajouté des Coallabrateurs ! Veuillez ajouter des Collaborateurs pour pouvoir les lister ..</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Vous n'avez pas ajouté des Managers ! Veuillez ajouter des Managers pour pouvoir les lister ..</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
                         }
                 }
         });
@@ -336,7 +336,7 @@
             alert("Veuillez selectionner le compte à modifier !");
         } else if(nb_checked == 1) {
             $.cookie("usertoedit", parseInt($("input[name=check-collab]:checked").val()),{expires: 30,path: '/'});
-            document.location.href = "index.php?module=collab&option=edit&id="+parseInt($("input[name=check-collab]:checked").val());
+            document.location.href = "index.php?module=manager&option=edit&id="+parseInt($("input[name=check-collab]:checked").val());
         } else {
             alert("Modification multiple impossible !");
         }
@@ -357,7 +357,7 @@
                    }
             });
             $.cookie("userstodelete", id_todelete,{expires: 30,path: '/'});
-            document.location.href = "index.php?module=collab&option=delete&id="+id_todelete;
+            document.location.href = "index.php?module=manager&option=delete&id="+id_todelete;
         }
     });
 
