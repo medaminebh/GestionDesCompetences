@@ -328,7 +328,7 @@ $('#add-collab').submit(function(){
                 success: function (a) {
                         if (a == 1) {
                                 $("#loading").hide();
-                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\">Un nouveau compte Collaborateur vient d'etre ajouté.</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\">Un nouveau compte Manager vient d'etre ajouté.</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
                         } else if(a == "test") {
                                 $("#loading").hide();
                                 $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue ! <br />No Submit !</p>")}).fadeIn("normal");
