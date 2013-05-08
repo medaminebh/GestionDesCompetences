@@ -11,6 +11,10 @@ if(defined('forcompetence')){
     include_once "CompetenceDAO.class.php";
 }
 
+if(defined('forcatcompetence')){
+    include_once "CatCompetenceDAO.class.php";
+}
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -52,6 +56,11 @@ final class DAOFactory {
     public function getCompetenceDAO() {
         // CompetenceDAO implements ICompetenceDAO
         return CompetenceDAO::getCompetenceDAO();
+    }
+
+    public function getCatCompetenceDAO() {
+        // CompetenceDAO implements ICompetenceDAO
+        return CatCompetenceDAO::getCatCompetenceDAO();
     }
 }
 ?>

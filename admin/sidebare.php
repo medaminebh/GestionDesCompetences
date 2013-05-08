@@ -27,7 +27,8 @@
     <ul class="toggle">
         <li class="icn_new_article"><a href="index.php?module=competence&option=add">Ajouter competence</a></li>
         <li class="icn_categories"><a href="index.php?module=competence&option=list">Liste des competences</a></li>
-        <li class="icn_categories"><a href="index.php?module=competence&option=list_cat">Liste des categories</a></li>
+        <li class="icn_new_article"><a href="index.php?module=cat_competence&option=add_cat">Ajouter des categories</a></li>
+        <li class="icn_categories"><a href="index.php?module=cat_competence&option=list_cat">Liste des categories</a></li>
     </ul>
 
     <h3>Services</h3>

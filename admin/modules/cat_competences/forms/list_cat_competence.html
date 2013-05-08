@@ -7,7 +7,7 @@
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1>Liste des Competences</h1>
+		<h1>Liste des Catégories de Competences</h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -41,7 +41,7 @@
                             <div style="float: left;" class="loader"><img src="images/ajax-loader.gif" alt="Loading..." title="Loading..." id="loading" style="display: none" /></div><div style="float: left; margin-left:5px; margin-bottom: 10px;" id="info"></div>
                                 <div class="clear">&nbsp;</div>
                                 <img src="images/arrow-right.jpg" alt="Add This" title="Add This .." id="arrow-right" style="float:right; display: none; opacity: .6; margin: 15px 50px 0 0;" />
-                                <a href="index.php?module=cat_competence&option=add" class="addnew" id="addnew" style="left: 48%; display: none;">Ajouter un Collaborateur</a>
+                                <a href="index.php?module=cat_competence&option=add_cat" class="addnew" id="addnew" style="left: 48%; display: none;">Ajouter une catégorie de Compétences</a>
 				<!--  start product-table ..................................................................................... -->
 				<form id="mainform" action="" method="POST" style="display:none">
                                     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
@@ -119,7 +119,7 @@
                 var maxlist = Math.ceil(parseInt($.cookie("total-collabs"))/3);
                 if(parseInt($.cookie("total-collabs")) > parseInt($.cookie("begin"))){
                     $.cookie("list", (parseInt($.cookie("list")) < maxlist) ? (parseInt($.cookie("list"))+1) : maxlist,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }else {
                     $.cookie("begin", (parseInt($.cookie("begin"))-3),{expires: 30,path: '/'});
                 }
@@ -128,7 +128,7 @@
                 var maxlist = Math.ceil(parseInt($.cookie("total-collabs"))/5);
                 if(parseInt($.cookie("total-collabs")) > parseInt($.cookie("begin"))){
                     $.cookie("list", (parseInt($.cookie("list")) < maxlist) ? (parseInt($.cookie("list"))+1) : maxlist,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }else {
                     $.cookie("begin", (parseInt($.cookie("begin"))-5),{expires: 30,path: '/'});
                 }
@@ -137,7 +137,7 @@
                 var maxlist = Math.ceil(parseInt($.cookie("total-collabs"))/8);
                 if(parseInt($.cookie("total-collabs")) > parseInt($.cookie("begin"))){
                     $.cookie("list", (parseInt($.cookie("list")) < maxlist) ? (parseInt($.cookie("list"))+1) : maxlist,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
             }   }else {
                     $.cookie("begin", (parseInt($.cookie("begin"))-8),{expires: 30,path: '/'});
                 }
@@ -148,7 +148,7 @@
                 $.cookie("begin", parseInt($.cookie("begin")) > 0 ? (parseInt($.cookie("begin"))-3) : -1,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) >= 0){
                     $.cookie("list", (parseInt($.cookie("list")) > 1) ? (parseInt($.cookie("list"))-1) : 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }else {
                     $.cookie("begin", 0,{expires: 30,path: '/'});
                 }
@@ -156,7 +156,7 @@
                 $.cookie("begin", parseInt($.cookie("begin")) > 0 ? (parseInt($.cookie("begin"))-5) : -1,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) >= 0){
                     $.cookie("list", (parseInt($.cookie("list")) > 1) ? (parseInt($.cookie("list"))-1) : 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }else {
                     $.cookie("begin", 0,{expires: 30,path: '/'});
                 }
@@ -164,7 +164,7 @@
                 $.cookie("begin", parseInt($.cookie("begin")) > 0 ? (parseInt($.cookie("begin"))-8) : -1,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) >= 0){
                     $.cookie("list", (parseInt($.cookie("list")) > 1) ? (parseInt($.cookie("list"))-1) : 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
             }   }else {
                     $.cookie("begin", 0,{expires: 30,path: '/'});
                 }
@@ -177,7 +177,7 @@
                 $.cookie("begin", rest != 0 ? (parseInt($.cookie("total-collabs"))- rest) : (parseInt($.cookie("total-collabs"))- 3) ,{expires: 30,path: '/'});
                 if((parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- rest) || parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- 3)) && parseInt($.cookie("list")) != list){
                     $.cookie("list", list,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }else if($.cookie("nb-collabs-show") == 5) {
                 var rest = parseInt($.cookie("total-collabs")) % 5;
@@ -185,7 +185,7 @@
                 $.cookie("begin", rest != 0 ? (parseInt($.cookie("total-collabs"))- rest) : (parseInt($.cookie("total-collabs"))- 5) ,{expires: 30,path: '/'});
                 if((parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- rest) || parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- 5)) && parseInt($.cookie("list")) != list){
                     $.cookie("list", list,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }else if($.cookie("nb-collabs-show") == 8) {
                 var rest = parseInt($.cookie("total-collabs")) % 8;
@@ -193,7 +193,7 @@
                 $.cookie("begin", rest != 0 ? (parseInt($.cookie("total-collabs"))- rest) : (parseInt($.cookie("total-collabs"))- 8) ,{expires: 30,path: '/'});
                 if((parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- rest) || parseInt($.cookie("begin")) == (parseInt($.cookie("total-collabs"))- 8)) && parseInt($.cookie("list")) != list){
                     $.cookie("list", list,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }
         });
@@ -203,19 +203,19 @@
                 $.cookie("begin", 0,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) == 0 && parseInt($.cookie("list")) != 1){
                     $.cookie("list", 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }else if($.cookie("nb-collabs-show") == 5) {
                 $.cookie("begin", 0,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) == 0 && parseInt($.cookie("list")) != 1){
                     $.cookie("list", 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }else if($.cookie("nb-collabs-show") == 8) {
                 $.cookie("begin", 0,{expires: 30,path: '/'});
                 if(parseInt($.cookie("begin")) == 0 && parseInt($.cookie("list")) != 1){
                     $.cookie("list", 1,{expires: 30,path: '/'});
-                    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+                    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
                 }
             }
         });
@@ -224,48 +224,48 @@
             $.cookie("nb-collabs-show", $('#nb-collabs-show').val(),{expires: 30,path: '/'});
             $.cookie("begin", 0,{expires: 30,path: '/'});
             $.cookie("list", 1,{expires: 30,path: '/'});
-            loadCompetences(0, $.cookie("nb-collabs-show"));
+            loadCatCompetences(0, $.cookie("nb-collabs-show"));
         });
 
-    function loadCompetences(begin, limit) {
+    function loadCatCompetences(begin, limit) {
         $("#loading").fadeIn("fast");
         $("#info").fadeOut("fast", function(){$("#info").html("<p>Processing ...</p>")}).fadeIn("slow");
         var dataString = 'begin='+ begin + '&limit=' + limit;
 
         $.ajax({
                 type: "GET",
-                url: "admin/modules/competences/actions/listcompetence.php",
+                url: "admin/modules/cat_competences/actions/list_cat_competence.php",
                 contentType: "text/xml; charset=utf-8",
                 data: dataString,
                 cache: false,
                 success: function (xml) {
-                    var hasChildren = ($(xml).children('competences').length > 0 && $(xml).find('competences').attr('total')!=0);
+                    var hasChildren = ($(xml).children('cat_competences').length > 0 && $(xml).find('cat_competences').attr('total')!=0);
                         if (hasChildren) {
                             $("#mainform").fadeIn("fast");
-                            $("#page-info").html("Page <strong>"+$.cookie("list")+"</strong> / "+Math.ceil($(xml).find('competences').attr('total')/$.cookie("nb-collabs-show")));
-                            reloadCompetencesHeader();
+                            $("#page-info").html("Page <strong>"+$.cookie("list")+"</strong> / "+Math.ceil($(xml).find('cat_competences').attr('total')/$.cookie("nb-collabs-show")));
+                            reloadCatCompetencesHeader();
                             var i = 1;
-                            $(xml).find("competence").each(function() {
+                            $(xml).find("cat_competence").each(function() {
                                 var tr = "";
                                 if(i%2 == 0)
                                 tr+= "<tr class=\"alternate-row\">";
                                 else {
                                 tr+= "<tr>";
                                 }
-                                tr+= "<td><input name=\"check-collab\" id=\"check-collab"+$(this).find('competence_id').text()+"\" value=\""+$(this).find('competence_id').text()+"\" type=\"checkbox\"/></td>";
-                                tr+= "<td>"+$(this).find('competence_id').text()+"</td>";
-                                tr+= "<td>"+$(this).find('competence_nom').text()+"</td>";
-                                tr+= "<td>"+$(this).find('competence_description').text()+"</td>";
+                                tr+= "<td><input name=\"check-collab\" id=\"check-collab"+$(this).find('cat_competence_id').text()+"\" value=\""+$(this).find('cat_competence_id').text()+"\" type=\"checkbox\"/></td>";
+                                tr+= "<td>"+$(this).find('cat_competence_id').text()+"</td>";
+                                tr+= "<td>"+$(this).find('cat_competence_nom').text()+"</td>";
+                                tr+= "<td>"+$(this).find('cat_competence_description').text()+"</td>";
                                 tr+= "<td class=\"options-width\">";
-                                tr+= "<a href=\"index.php?module=competence&option=edit\" title=\"Edit\" class=\"icon-1 info-tooltip\" onClick=\"$.cookie('comptoedit', parseInt("+$(this).find('competence_id').text()+"),{expires: 30,path: '/'});\"></a>";
-				tr+= "<a href=\"index.php?module=competence&option=delete\" title=\"Delete\" class=\"icon-2 info-tooltip\" onClick=\"$.cookie('comptodelete', parseInt("+$(this).find('competence_id').text()+"),{expires: 30,path: '/'});\"></a>";
+                                tr+= "<a href=\"index.php?module=cat_competence&option=edit_cat\" title=\"Edit\" class=\"icon-1 info-tooltip\" onClick=\"$.cookie('cat_comptoedit', parseInt("+$(this).find('cat_competence_id').text()+"),{expires: 30,path: '/'});\"></a>";
+				tr+= "<a href=\"index.php?module=cat_competence&option=delete_cat\" title=\"Delete\" class=\"icon-2 info-tooltip\" onClick=\"$.cookie('cat_comptodelete', parseInt("+$(this).find('cat_competence_id').text()+"),{expires: 30,path: '/'});\"></a>";
 				tr+= "</td>";
                                 tr+= "</tr>";
                                 i++;
                                 $("#product-table").append(tr).hide().fadeIn("fast");
                             });
                                 $("#loading").hide();
-                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\"><span id=\"nb-collab\">"+$(xml).find('competences').attr('total')+"</span> competences trouvés.</p>")}).fadeIn("normal");
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\"><span id=\"nb-collab\">"+$(xml).find('cat_competences').attr('total')+"</span> catégories trouvés.</p>")}).fadeIn("normal");
                                 $("#paging-table").fadeIn("fast");
                                 //table sorter
                                 $(".tablesorter").tablesorter();
@@ -293,26 +293,26 @@
                                 $('#mainform input[type=checkbox]').checkBox('toggle');
                                 return false;
                                 });
-                                $.cookie("total-collabs", parseInt($(xml).find('competences').attr('total')),{expires: 30,path: '/'});
+                                $.cookie("total-collabs", parseInt($(xml).find('cat_competences').attr('total')),{expires: 30,path: '/'});
                                 $("#actions-box").show();
                         }else {
                                 $("#actions-box").hide();
                                 $.cookie("list", 0,{expires: 30,path: '/'});
                                 $.cookie("total-collabs", 0,{expires: 30,path: '/'});
                                 $("#loading").hide();
-                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Vous n'avez pas ajouté des Competences ! Veuillez en ajouter pour pouvoir les lister ..</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Vous n'avez pas ajouté des Catégories de Competences ! Veuillez en ajouter pour pouvoir les lister ..</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
                         }
                 }
         });
         return false;
     }
 
-    function reloadCompetencesHeader(){
+    function reloadCatCompetencesHeader(){
         var tabheader = '<tr>';
             tabheader+= '<th class="table-header-check"><a id="toggle-all" ></a> </th>';
-            tabheader+= '<th class="table-header-repeat line-left" ><a href="">Id Comp</a></th>';
-            tabheader+= '<th class="table-header-repeat line-left"><a href="">Nom Comp</a></th>';
-            tabheader+= '<th class="table-header-repeat line-left"><a href="">Description Comp</a></th>';
+            tabheader+= '<th class="table-header-repeat line-left" ><a href="">Id Cat-Comp</a></th>';
+            tabheader+= '<th class="table-header-repeat line-left"><a href="">Nom Cat-Comp</a></th>';
+            tabheader+= '<th class="table-header-repeat line-left"><a href="">Description Cat-Comp</a></th>';
             tabheader+= '<th class="table-header-options line-left"><a href="">Options</a></th>';
             tabheader+= '</tr>';
             $("#product-table").html(tabheader).hide().fadeIn("fast");
@@ -321,10 +321,10 @@
     $("#edit-action").click(function(){
         var nb_checked = $("input[name=check-collab]:checked").length;
         if(nb_checked == 0) {
-            alert("Veuillez selectionner la competence à modifier !");
+            alert("Veuillez selectionner la catégorie à modifier !");
         } else if(nb_checked == 1) {
-            $.cookie("comptoedit", parseInt($("input[name=check-collab]:checked").val()),{expires: 30,path: '/'});
-            document.location.href = "index.php?module=competence&option=edit&id="+parseInt($("input[name=check-collab]:checked").val());
+            $.cookie("cat_comptoedit", parseInt($("input[name=check-collab]:checked").val()),{expires: 30,path: '/'});
+            document.location.href = "index.php?module=cat_competence&option=edit_cat&id="+parseInt($("input[name=check-collab]:checked").val());
         } else {
             alert("Modification multiple impossible !");
         }
@@ -333,7 +333,7 @@
     $("#multidelete-action").click(function(){
         var nb_checked = $("input[name=check-collab]:checked").length;
         if(nb_checked == 0) {
-            alert("Veuillez selectionner au moins une competence à supprimer !");
+            alert("Veuillez selectionner au moins une catégorie à supprimer !");
         } else {
             var id_todelete = "";
             var i = 0;
@@ -344,11 +344,11 @@
                       id_todelete+= "-";
                    }
             });
-            $.cookie("comptodelete", id_todelete,{expires: 30,path: '/'});
-            document.location.href = "index.php?module=competence&option=delete&id="+id_todelete;
+            $.cookie("cat_comptodelete", id_todelete,{expires: 30,path: '/'});
+            document.location.href = "index.php?module=cat_competence&option=delete_cat&id="+id_todelete;
         }
     });
 
     $("#content-outer").height($("#sidebar").height());
-    loadCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
+    loadCatCompetences($.cookie("begin"), $.cookie("nb-collabs-show"));
 </script>

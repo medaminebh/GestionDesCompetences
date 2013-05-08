@@ -79,6 +79,9 @@
                                         case "edit":
                                             echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Edit Competence</a>';
                                             break;
+                                        case "add_cat":
+                                            echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Add Categories Competences</a>';
+                                            break;
                                         case "list_cat":
                                             echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">List Categories Competences</a>';
                                             break;
@@ -195,11 +198,34 @@
                                         case "delete":
                                             include_once 'modules/competences/forms/deletecompetence.html';
                                             break;
+                                        case "add_cat":
+                                            echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Add Categories Competences</a>';
+                                            break;
                                         case "list_cat":
                                             echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">List Categories Competences</a>';
                                             break;
                                         case "edit_cat":
                                             echo '<div class="breadcrumb_divider"></div> <a href="javascript:void(0);" class="current">Edit Categorie Competence</a>';
+                                            break;
+                                        default :
+                                            break;
+                                    }
+                                }
+                                break;
+                            case "cat_competence":
+                                if(isset($_GET['option'])){
+                                    switch ($_GET['option']){
+                                        case "add_cat":
+                                            include_once 'modules/cat_competences/forms/add_cat_competence.html';
+                                            break;
+                                        case "list_cat":
+                                            include_once 'modules/cat_competences/forms/list_cat_competence.html';
+                                            break;
+                                        case "edit_cat":
+                                            include_once 'modules/cat_competences/forms/edit_cat_competence.html';
+                                            break;
+                                        case "delete_cat":
+                                            include_once 'modules/cat_competences/forms/delete_cat_competence.html';
                                             break;
                                         default :
                                             break;

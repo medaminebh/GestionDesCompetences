@@ -237,6 +237,42 @@ function selectQuery($obj, $table){
         }
 
        break;
+
+       case "cat_competence":
+        $id_cat_competence = intval($obj->getId_CatCompetence());
+        $cat_competence = array(
+                    'id_cat_competence' => isset($id_cat_competence) ? $id_cat_competence : 0,
+                    'nom_cat_competence' => $obj->getNomCatCompetence(),
+                    'description_cat_competence' => $obj->getDescCatCompetence()
+                    );
+        $first = false;
+
+        $sql = "SELECT * FROM ".$table;
+
+        if(isset($cat_competence['id_cat_competence']) && !empty($cat_competence['id_cat_competence']) && intval($cat_competence['id_cat_competence']) > 0 ){
+        $first = true;
+        $sql.= ' WHERE id_cat_competence = :id_cat_competence';
+        }
+
+        if(isset($cat_competence['nom_cat_competence']) && !empty($cat_competence['nom_cat_competence'])){
+            if($first){
+                $sql.= ' AND nom_cat_competence = :nom_cat_competence';
+            } else {
+                $sql.= ' WHERE nom_cat_competence = :nom_cat_competence';
+                $first = true;
+            }
+        }
+
+        if(isset($cat_competence['description_cat_competence']) && !empty($cat_competence['description_cat_competence'])){
+            if($first){
+                $sql.= ' AND description_cat_competence = :description_cat_competence';
+            } else {
+                $sql.= ' WHERE description_cat_competence = :description_cat_competence';
+                $first = true;
+            }
+        }
+
+       break;
 	   
     default :
         break;
@@ -286,6 +322,19 @@ function insertQuery($obj, $table){
         $sql.= ' VALUES';
         $sql.= ' (:nom_competence,:description_competence)';
         break;
+
+        case "cat_competence":
+        $cat_competence = array(
+                    'nom_cat_competence' => $obj->getNomCatCompetence(),
+                    'description_cat_competence' => $obj->getDescCatCompetence()
+                    );
+
+        $sql = "INSERT INTO ".$table;
+        $sql.= ' (nom_cat_competence,description_cat_competence)';
+        $sql.= ' VALUES';
+        $sql.= ' (:nom_cat_competence,:description_cat_competence)';
+        break;
+
     default :
         break;
     }
@@ -492,6 +541,36 @@ function updateQuery($obj, $table){
         }
 
         $sql.= " WHERE id_competence = :id_competence";
+       break;
+
+       case "cat_competence":
+        $id_cat_competence = intval($obj->getId_CatCompetence());
+        $cat_competence = array(
+                    'id_cat_competence' => isset($id_cat_competence) ? $id_cat_competence : 0,
+                    'nom_cat_competence' => $obj->getNomCatCompetence(),
+                    'description_cat_competence' => $obj->getDescCatCompetence()
+                    );
+            $first = false;
+
+        $sql = "Update ".$table;
+
+
+        if(isset($cat_competence['nom_cat_competence']) && !empty($cat_competence['nom_cat_competence'])){
+            $first = true;
+            $sql.= ' SET nom_cat_competence = :nom_cat_competence,';
+        }
+
+
+        if(isset($cat_competence['description_cat_competence']) && !empty($cat_competence['description_cat_competence'])){
+            if($first){
+                $sql.= ' description_cat_competence = :description_cat_competence';
+            } else {
+                $sql.= ' SET description_cat_competence = :description_cat_competence';
+                $first = true;
+            }
+        }
+
+        $sql.= " WHERE id_cat_competence = :id_cat_competence";
        break;
 	   
     default :
@@ -723,6 +802,41 @@ function deleteQuery($obj, $table){
 
 	break;
 
+        case "cat_competence":
+        $id_cat_competence = intval($obj->getId_CatCompetence());
+        $cat_competence = array(
+                    'id_cat_competence' => isset($id_cat_competence) ? $id_cat_competence : 0,
+                    'nom_cat_competence' => $obj->getNomCatCompetence(),
+                    'description_cat_competence' => $obj->getDescCatCompetence()
+                    );
+
+		$sql = "DELETE FROM ".$table;
+
+        if(isset($cat_competence['id_cat_competence']) && !empty($cat_competence['id_cat_competence']) && intval($cat_competence['id_cat_competence']) > 0 ){
+        $first = true;
+        $sql.= ' WHERE id_cat_competence = :id_cat_competence';
+        }
+
+        if(isset($cat_competence['nom_cat_competence']) && !empty($cat_competence['nom_cat_competence'])){
+            if($first){
+                $sql.= ' AND nom_cat_competence = :nom_cat_competence';
+            } else {
+                $sql.= ' WHERE nom_cat_competence = :nom_cat_competence';
+                $first = true;
+            }
+        }
+
+        if(isset($cat_competence['description_cat_competence']) && !empty($cat_competence['description_cat_competence'])){
+            if($first){
+                $sql.= ' AND description_cat_competence = :description_cat_competence';
+            } else {
+                $sql.= ' WHERE description_cat_competence = :description_cat_competence';
+                $first = true;
+            }
+        }
+
+	break;
+
     default :
         break;
     }
@@ -829,6 +943,25 @@ function bindValQuery($obj, $table, $stmt){
 
         if(isset($competence['description_competence']) && !empty($competence['description_competence']))
         $stmt->bindParam(':description_competence', $competence['description_competence'], PDO::PARAM_STR);
+
+	break;
+
+        case "cat_competence":
+        $id_cat_competence = intval($obj->getId_CatCompetence());
+        $cat_competence = array(
+                    'id_cat_competence' => isset($id_cat_competence) ? $id_cat_competence : 0,
+                    'nom_cat_competence' => $obj->getNomCatCompetence(),
+                    'description_cat_competence' => $obj->getDescCatCompetence()
+                    );
+
+	if(isset($cat_competence['id_cat_competence']) && !empty($cat_competence['id_cat_competence']) && $cat_competence['id_cat_competence'] > 0 )
+        $stmt->bindValue(':id_cat_competence', $cat_competence['id_cat_competence'], PDO::PARAM_INT);
+
+        if(isset($cat_competence['nom_cat_competence']) && !empty($cat_competence['nom_cat_competence']))
+        $stmt->bindParam(':nom_cat_competence', $cat_competence['nom_cat_competence'], PDO::PARAM_STR);
+
+        if(isset($cat_competence['description_cat_competence']) && !empty($cat_competence['description_cat_competence']))
+        $stmt->bindParam(':description_cat_competence', $cat_competence['description_cat_competence'], PDO::PARAM_STR);
 
 	break;
 					
