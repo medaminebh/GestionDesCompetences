@@ -273,7 +273,41 @@ function selectQuery($obj, $table){
         }
 
        break;
-	   
+	case "projet":
+        $id_projet = intval($obj->getId_Projet());
+        $projet = array(
+                    'id_projet' => isset($id_projet) ? $id_projet : 0,
+                    'nom_projet' => $obj->getNomProjet(),
+                    'description_projet' => $obj->getDescProjet()
+                    );
+        $first = false;
+
+        $sql = "SELECT * FROM ".$table;
+
+        if(isset($projet['id_projet']) && !empty($projet['id_projet']) && intval($projet['id_projet']) > 0 ){
+        $first = true;
+        $sql.= ' WHERE id_projet = :id_projet';
+        }
+
+        if(isset($projet['nom_projet']) && !empty($projet['nom_projet'])){
+            if($first){
+                $sql.= ' AND nom_projet = :nom_projet';
+            } else {
+                $sql.= ' WHERE nom_projet = :nom_projet';
+                $first = true;
+            }
+        }
+        
+        if(isset($projet['description_projet']) && !empty($projet['description_projet'])){
+            if($first){
+                $sql.= ' AND description_projet = :description_projet';
+            } else {
+                $sql.= ' WHERE description_projet = :description_projet';
+                $first = true;
+            }
+        }
+
+       break;   
     default :
         break;
     }
@@ -334,6 +368,20 @@ function insertQuery($obj, $table){
         $sql.= ' VALUES';
         $sql.= ' (:nom_cat_competence,:description_cat_competence)';
         break;
+
+
+case "projet":
+        $projet = array(
+                    'nom_projet' => $obj->getNomProjet(),
+                    'description_projet' => $obj->getDescProjet()
+                    );
+
+        $sql = "INSERT INTO ".$table;
+        $sql.= ' (nom_projet,description_projet)';
+        $sql.= ' VALUES';
+        $sql.= ' (:nom_projet,:description_projet)';
+        break;
+
 
     default :
         break;
@@ -962,6 +1010,25 @@ function bindValQuery($obj, $table, $stmt){
 
         if(isset($cat_competence['description_cat_competence']) && !empty($cat_competence['description_cat_competence']))
         $stmt->bindParam(':description_cat_competence', $cat_competence['description_cat_competence'], PDO::PARAM_STR);
+
+	break;
+	
+	case "projet":
+        $id_projet = intval($obj->getId_Projet());
+        $projet = array(
+                    'id_projet' => isset($id_projet) ? $id_projet : 0,
+                    'nom_projet' => $obj->getNomProjet(),
+                    'description_projet' => $obj->getDescProjet()
+                    );
+
+	if(isset($projet['id_projet']) && !empty($projet['id_projet']) && $projet['id_projet'] > 0 )
+        $stmt->bindValue(':id_projet', $projet['id_projet'], PDO::PARAM_INT);
+
+        if(isset($projet['nom_projet']) && !empty($projet['nom_projet']))
+        $stmt->bindParam(':nom_projet', $projet['nom_projet'], PDO::PARAM_STR);
+
+        if(isset($projet['description_projet']) && !empty($projet['description_projet']))
+        $stmt->bindParam(':description_projet', $projet['description_projet'], PDO::PARAM_STR);
 
 	break;
 					

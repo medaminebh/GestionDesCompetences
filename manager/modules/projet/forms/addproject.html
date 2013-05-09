@@ -1,0 +1,130 @@
+<!-- Start: page-top-outer -->
+<!-- <div id="page-top-outer">
+
+
+</div> -->
+<!-- End: page-top-outer -->
+
+<div class="clear">&nbsp;</div>
+
+<!-- start content-outer -->
+<div id="content-outer">
+    <!-- start content -->
+    <div id="content">
+        <div id="page-heading"><h1>Ajouter un projet</h1></div>
+            <!-- end page-heading -->
+
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<tr>
+		<th rowspan="3" class="sized"><img src="images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
+		<th class="topleft"></th>
+		<td id="tbl-border-top">&nbsp;</td>
+		<th class="topright"></th>
+		<th rowspan="3" class="sized"><img src="images/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
+	</tr>
+	<tr>
+		<td id="tbl-border-left"></td>
+		<td>
+		<!--  start content-table-inner ...................................................................... START -->
+		<div id="content-table-inner">
+
+			<!--  start table-content  -->
+			<div id="table-content">
+
+                            <div style="float: left;" class="loader"><img src="images/ajax-loader.gif" alt="Loading..." title="Loading..." id="loading" style="display:none" /></div><div style="float: left; margin-left:5px;" id="info"><p>Veuillez remplir le formulaire pour l'ajout d'un projet..</p><div id="error" style="color: red; display:none"></div><br /></div>
+                            <div class="clear">&nbsp;</div>
+                            <img src="images/arrow-right.jpg" alt="Add This" title="Add This .." id="arrow-right" style="float:right; opacity: .6; display: none; margin: 15px 50px 0 0;" />
+                            <a href="index.php?module=project&option=add" class="addnew" id="addnew" style="display: none;">Ajouter un autre Projet</a>
+                            <!-- start id-form -->
+                                <form id="add-competence" action="" method="POST">
+                                    <fieldset style="padding: 10px 10px 0 10px;">
+                                        <legend style="color: red;">Information du projet</legend>
+                                        <table border="0" cellpadding="" cellspacing="" class="id-form">
+                                            <tbody>
+                                                <tr>
+                                                    <th valign="top">Nom projet:</th>
+                                                    <td><input name="nom" type="text" required="required" /></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th valign="top">Description :</th>
+                                                    <td><textarea name ="desc" rows="3" cols="" class="form-textarea" required="required"></textarea></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th valign="top">Date de création :</th>
+                                                    <td><input name="date_cr" type="date"  required="required"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                     </fieldset>
+                                    
+                                    <input type="submit" name="submit" style="float: right; margin: 35px 50px 0px 15px; width: 100px;color: green;font-weight: bold;cursor: pointer;" value="Ajouter" />
+                                    <input type="reset" value="" style="float: right; margin: 34px 0 0 0;" id="reset" class="form-reset" />
+                                </form>
+                            <!-- end id-form  -->
+                            <div class="clear">&nbsp;</div>
+                        </div>
+			<!--  end content-table  -->
+
+		</div>
+		<!--  end content-table-inner ............................................END  -->
+		</td>
+		<td id="tbl-border-right"></td>
+	</tr>
+	<tr>
+		<th class="sized bottomleft"></th>
+		<td id="tbl-border-bottom">&nbsp;</td>
+		<th class="sized bottomright"></th>
+	</tr>
+	</table>
+	<div class="clear">&nbsp;</div>
+        </div>
+        <!--  end content -->
+        <div class="clear">&nbsp;</div>
+</div>
+<script type="text/javascript">
+$("#content-outer").height($("#sidebar").height());
+$('#add-competence').submit(function(){
+        $("#info").fadeOut("fast", function(){$("#info").html("<p>Processing ...</p>")}).fadeIn("slow");
+        $("#add-competence").fadeOut("fast", function(){$("#loading").fadeIn("normal");});
+        $("#content-outer").height($("#sidebar").height());
+        var competence = new Array(
+                    $("input[name=nom]").val(),
+                    $("textarea[name=desc]").val(),
+                    $("input[name=date_cr]").val()
+                );
+    var dataString = 'nom_projet='+ competence[0]
+                     + '&description_projet=' + competence[1]
+                     + '&date=' + competence[2]
+                     + '&submit=true'
+                     ;
+
+        $.ajax({
+                type: "POST",
+                url: "manager/modules/projet/actions/addprojet.php",
+                data: dataString,
+                cache: false,
+                success: function (a) {
+                        if (a == 1) {
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: green;\">Un nouveau projet vient d'etre ajouté.</p>")}).fadeIn("normal", function(){$("#addnew").fadeIn("normal");$("#arrow-right").fadeIn("normal");});
+                        } else if(a == "nom_projet") {
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue ! <br />Vérifiez le nom d projet !</p>")}).fadeIn("normal");
+                        } else if(a == "description_projet") {
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue ! <br />Vérifiez la description du projet !</p>")}).fadeIn("normal");
+                        } else if(a == 0){
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue ! <br />Ce projet existe déjà !</p>")}).fadeIn("normal");
+                        } else{
+                                $("#loading").hide();
+                                $("#info").fadeOut("fast", function(){$("#info").html("<p style=\"color: red;\">Une erreure est survenue !</p>")}).fadeIn("normal");
+                        }
+                }
+        });
+        return false;
+});
+</script>
