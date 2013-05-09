@@ -11,6 +11,10 @@ if(defined('forcompetence')){
     include_once "CompetenceDAO.class.php";
 }
 
+if(defined('forprojet')){
+    include_once "ProjetDAO.class.php";
+}
+
 if(defined('forcatcompetence')){
     include_once "CatCompetenceDAO.class.php";
 }
@@ -61,6 +65,10 @@ final class DAOFactory {
     public function getCatCompetenceDAO() {
         // CompetenceDAO implements ICompetenceDAO
         return CatCompetenceDAO::getCatCompetenceDAO();
+    }
+    public function getProjetDAO() {
+        // ProjetDAO implements IProjetDAO
+        return ProjetDAO::getProjetDAO();
     }
 }
 ?>
